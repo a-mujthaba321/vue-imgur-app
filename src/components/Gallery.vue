@@ -1,14 +1,15 @@
 <template>
-  <div class="image-container">
+  <div v-if="isLoggedIn" class="image-container">
     <img v-for="image in allImages" :key="image.link" :src="image.link">
   </div>
+  <h2 v-else>Please Log-In</h2>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Gallery",
-  computed: mapGetters(["allImages"]),
+  computed: mapGetters(["allImages", "isLoggedIn"]),
   created() {
     this.fetchImages();
   },
@@ -18,11 +19,11 @@ export default {
 
 <style scoped>
 .image-container {
-  column-count: 2;
+  column-count: 3;
   column-gap: 0;
 }
 
-.img {
+img {
   max-width: 100%;
   padding: 5px;
 }
