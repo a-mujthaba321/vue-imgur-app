@@ -2,10 +2,12 @@ import api from "../../api/imgur";
 import { router } from "../../main";
 
 const state = {
-  images: []
+  images: [],
+  loading: false
 };
 const getters = {
-  allImages: state => state.images
+  allImages: state => state.images,
+  showLoading: state => state.loading
 };
 
 const actions = {
@@ -15,9 +17,11 @@ const actions = {
     commit("setImages", response.data.data);
   },
 
-  async uploadImages({ rootState }, images) {
+  async uploadImages({ commit, rootState }, images) {
     const { token } = rootState.auth;
+    commit("setLoading", true);
     await api.uploadImages(images, token);
+    commit("setLoading", false);
     router.push("/");
   }
 };
@@ -25,6 +29,9 @@ const actions = {
 const mutations = {
   setImages: (state, images) => {
     state.images = images;
+  },
+  setLoading: (state, isLoading) => {
+    state.loading = isLoading;
   }
 };
 

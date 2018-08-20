@@ -3,7 +3,7 @@
     <router-link 
       to="/" 
       class="active item">
-      Image Storage
+      Image Fall
     </router-link>
 
     <div class="right menu">
